@@ -1,7 +1,7 @@
 import { createAsyncThunk } from '@reduxjs/toolkit';
 import axios from 'axios';
 
-axios.defaults.baseURL = 'https://64a199d00079ce56e2db3eeb.mockapi.io';
+axios.defaults.baseURL = 'https://connections-api.herokuapp.com';
 const path = '/contacts';
 
 // fetchContacts - одержання масиву контактів (метод GET) запитом. Базовий тип екшену "contacts/fetchAll".

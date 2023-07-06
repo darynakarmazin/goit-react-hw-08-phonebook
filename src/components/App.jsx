@@ -1,69 +1,41 @@
-import React, { useEffect } from 'react';
+import { lazy } from 'react';
+import { Route, Routes } from 'react-router-dom';
+import { Layout } from './Layout';
+import { RestrictedRoute } from './RestrictedRoute';
 
-import { Wrapper, Header } from './App.styled';
-import { ContactForm } from './contactForm/ContactForm';
-import { Filter } from './filter/Filter';
-import { ContactList } from './contactList/ContactList';
-import { useDispatch, useSelector } from 'react-redux';
-import { setFilter } from 'redux/filterSlice';
-import {
-  selectСontacts,
-  selectFilter,
-  selectError,
-  selectIsLoading,
-} from 'redux/selectors';
-import { addContact, deleteContact, fetchContacts } from 'redux/operations';
+const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
+const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
+const RegisterPage = lazy(() => import('../pages/RegisterPage/RegisterPage'));
+const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
+// const TasksPage = lazy(() => import('../pages/Tasks'));
 
-export function App() {
-  const dispatch = useDispatch();
-  const contacts = useSelector(selectСontacts);
-  const filter = useSelector(selectFilter);
-  const isLoading = useSelector(selectIsLoading);
-  const error = useSelector(selectError);
+export const App = () => {
+  // const dispatch = useDispatch();
+  // const { isRefreshing } = useAuth();
 
-  useEffect(() => {
-    dispatch(fetchContacts());
-  }, [dispatch]);
+  // useEffect(() => {
+  //   dispatch(refreshUser());
+  // }, [dispatch]);c
 
-  const onDeleteContact = contactId => {
-    dispatch(deleteContact(contactId));
-  };
-
-  const onAddContact = newcontact => {
-    if (
-      contacts.find(
-        contact => contact.name.toLowerCase() === newcontact.name.toLowerCase()
-      )
-    ) {
-      alert(`${newcontact.name} is already in contacts!`);
-      return;
-    }
-
-    dispatch(addContact(newcontact));
-  };
-
-  const changeFilter = event => dispatch(setFilter(event.currentTarget.value));
-
-  const getFiltredContacts = () => {
-    const normalizedFilter = filter.toLowerCase();
-    return contacts.filter(contact =>
-      contact.name.toLowerCase().includes(normalizedFilter)
-    );
-  };
-  const filtredContacts = getFiltredContacts();
-
+  // isRefreshing ? (
+  //   <b>Refreshing user...</b>
+  // ) :
   return (
-    <Wrapper>
-      <Header>Phonebook</Header>
-      <ContactForm onSubmit={onAddContact} />
-
-      <h2>Contacts</h2>
-      <Filter value={filter} onChange={changeFilter} />
-      {isLoading && !error && <b>Request in progress...</b>}
-      <ContactList
-        filtredContacts={filtredContacts}
-        onDeleteContact={onDeleteContact}
-      />
-    </Wrapper>
+    <Routes>
+      <Route path="/" element={<Layout />}>
+        <Route index element={<HomePage />} />
+        <Route
+          path="/register"
+          element={
+            <RestrictedRoute
+              redirectTo="/contacts"
+              component={<RegisterPage />}
+            />
+          }
+        />
+        <Route path="/login" element={<LoginPage />} />
+        <Route path="/contacts" element={<ContactsPage />} />
+      </Route>
+    </Routes>
   );
-}
+};

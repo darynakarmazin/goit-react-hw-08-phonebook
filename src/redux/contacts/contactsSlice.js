@@ -1,5 +1,5 @@
 import { createSlice, isAllOf } from '@reduxjs/toolkit';
-import { CONTACTS } from 'redux/constants';
+import { CONTACTS } from 'redux/contacts/constants';
 import { addContact, deleteContact, fetchContacts } from './operations';
 import {
   STATUS,
