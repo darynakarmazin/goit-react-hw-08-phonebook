@@ -1,19 +1,17 @@
-import { NavLink, Outlet } from 'react-router-dom';
+import { Outlet } from 'react-router-dom';
 import { Suspense } from 'react';
+import { Navigation } from './navigation/Navigation';
+import { UserMenu } from './userMenu/UserMenu';
+import { useAuth } from 'redux/auth/useAuth';
+import { AuthNav } from './authNav/AuthNav';
 
 export const Layout = () => {
+  const { isLoggedIn } = useAuth();
+
   return (
     <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 16px' }}>
-      <div>
-        <nav>
-          <NavLink to="/">Home</NavLink>
-          <NavLink to="/contacts">Contacts</NavLink>
-        </nav>
-        <div>
-          <NavLink to="/register">Register</NavLink>
-          <NavLink to="/login">Log In</NavLink>
-        </div>
-      </div>
+      <Navigation />
+      {isLoggedIn ? <UserMenu /> : <AuthNav />}
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
