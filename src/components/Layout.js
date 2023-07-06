@@ -4,17 +4,27 @@ import { Navigation } from './navigation/Navigation';
 import { UserMenu } from './userMenu/UserMenu';
 import { useAuth } from 'redux/auth/useAuth';
 import { AuthNav } from './authNav/AuthNav';
+import { Wrapper } from './App.styled';
 
 export const Layout = () => {
   const { isLoggedIn } = useAuth();
 
   return (
-    <div style={{ maxWidth: 960, margin: '0 auto', padding: '0 16px' }}>
-      <Navigation />
-      {isLoggedIn ? <UserMenu /> : <AuthNav />}
+    <Wrapper>
+      <div
+        style={{
+          display: 'flex',
+          justifyContent: 'space-between',
+          margin: '0 auto',
+          width: '100%',
+        }}
+      >
+        <Navigation />
+        {isLoggedIn ? <UserMenu /> : <AuthNav />}
+      </div>
       <Suspense fallback={null}>
         <Outlet />
       </Suspense>
-    </div>
+    </Wrapper>
   );
 };

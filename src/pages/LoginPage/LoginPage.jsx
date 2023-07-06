@@ -1,6 +1,7 @@
-import { Header, Wrapper } from 'components/App.styled';
+import { Header } from 'components/App.styled';
 import { useDispatch } from 'react-redux';
 import { logIn } from 'redux/auth/operations';
+import { Input, Form, Button } from 'components/contactForm/ContactForm.styled';
 
 export default function Login() {
   const dispatch = useDispatch();
@@ -18,20 +19,20 @@ export default function Login() {
   };
 
   return (
-    <Wrapper>
+    <>
       <Header>Login</Header>
 
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <label>
           Email
-          <input type="email" name="email" />
+          <Input type="email" name="email" />
         </label>
         <label>
           Password
-          <input type="password" name="password" />
+          <Input type="password" name="password" />
         </label>
-        <button type="submit">Log In</button>
-      </form>
-    </Wrapper>
+        <Button type="submit">Log In</Button>
+      </Form>
+    </>
   );
 }

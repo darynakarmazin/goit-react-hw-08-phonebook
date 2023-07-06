@@ -1,6 +1,6 @@
 import React, { useEffect } from 'react';
 
-import { Wrapper, Header } from '../../components/App.styled';
+import { Header } from '../../components/App.styled';
 import { ContactForm } from '../../components/contactForm/ContactForm';
 import { Filter } from '../../components/filter/Filter';
 import { ContactList } from '../../components/contactList/ContactList';
@@ -12,7 +12,11 @@ import {
   selectError,
   selectIsLoading,
 } from 'redux/contacts/selectors';
-import { addContact, deleteContact, fetchContacts } from 'redux/contacts/operations';
+import {
+  addContact,
+  deleteContact,
+  fetchContacts,
+} from 'redux/contacts/operations';
 
 export default function ContactsPage() {
   const dispatch = useDispatch();
@@ -53,7 +57,7 @@ export default function ContactsPage() {
   const filtredContacts = getFiltredContacts();
 
   return (
-    <Wrapper>
+    <>
       <Header>Phonebook</Header>
       <ContactForm onSubmit={onAddContact} />
 
@@ -64,6 +68,6 @@ export default function ContactsPage() {
         filtredContacts={filtredContacts}
         onDeleteContact={onDeleteContact}
       />
-    </Wrapper>
+    </>
   );
 }

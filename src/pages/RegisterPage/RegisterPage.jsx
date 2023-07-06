@@ -1,6 +1,7 @@
-import { Header, Wrapper } from 'components/App.styled';
+import { Header } from 'components/App.styled';
 import { useDispatch } from 'react-redux';
 import { register } from 'redux/auth/operations';
+import { Input, Form, Button } from 'components/contactForm/ContactForm.styled';
 
 export default function RegisterPage() {
   const dispatch = useDispatch();
@@ -19,23 +20,23 @@ export default function RegisterPage() {
   };
 
   return (
-    <Wrapper>
+    <>
       <Header>Registration</Header>
-      <form onSubmit={handleSubmit}>
+      <Form onSubmit={handleSubmit}>
         <label>
           Username
-          <input type="text" name="name" />
+          <Input type="text" name="name" />
         </label>
         <label>
           Email
-          <input type="email" name="email" />
+          <Input type="email" name="email" />
         </label>
         <label>
           Password
-          <input type="password" name="password" />
+          <Input type="password" name="password" />
         </label>
-        <button type="submit">Register</button>
-      </form>
-    </Wrapper>
+        <Button type="submit">Register</Button>
+      </Form>
+    </>
   );
 }
