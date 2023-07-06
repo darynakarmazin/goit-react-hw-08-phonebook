@@ -1,8 +1,11 @@
-import { lazy } from 'react';
-import { Route, Routes } from 'react-router-dom';
+import { lazy, useEffect } from 'react';
+import { Navigate, Route, Routes } from 'react-router-dom';
 import { Layout } from './Layout';
 import { RestrictedRoute } from './RestrictedRoute';
 import { PrivateRoute } from './PrivateRoute';
+import { useDispatch } from 'react-redux';
+import { useAuth } from 'redux/auth/useAuth';
+import { refreshUser } from 'redux/auth/operations';
 
 const HomePage = lazy(() => import('../pages/HomePage/HomePage'));
 const ContactsPage = lazy(() => import('../pages/ContactsPage/ContactsPage'));
@@ -11,17 +14,16 @@ const LoginPage = lazy(() => import('../pages/LoginPage/LoginPage'));
 // const TasksPage = lazy(() => import('../pages/Tasks'));
 
 export const App = () => {
-  // const dispatch = useDispatch();
-  // const { isRefreshing } = useAuth();
+  const dispatch = useDispatch();
+  const { isRefreshing } = useAuth();
 
-  // useEffect(() => {
-  //   dispatch(refreshUser());
-  // }, [dispatch]);c
+  useEffect(() => {
+    dispatch(refreshUser());
+  }, [dispatch]);
 
-  // isRefreshing ? (
-  //   <b>Refreshing user...</b>
-  // ) :
-  return (
+  return isRefreshing ? (
+    <b>Refreshing user...</b>
+  ) : (
     <Routes>
       <Route path="/" element={<Layout />}>
         <Route index element={<HomePage />} />
@@ -47,6 +49,7 @@ export const App = () => {
           }
         />
       </Route>
+      <Route path="*" element={<Navigate to="/" />} />
     </Routes>
   );
 };
