@@ -12,7 +12,6 @@ export const NavLinkSt = styled(NavLink)`
   padding: 5px;
 
   &.active {
-    border: 1px solid black;
-    border-radius: 75px;
+    text-decoration: underline;
   }
 `;
