@@ -17,6 +17,10 @@ export const Layout = () => {
           justifyContent: 'space-between',
           margin: '0 auto',
           width: '100%',
+          borderBottomStyle: 'solid',
+          borderBottomWidth: 1,
+          borderBottomColor: 'black',
+          paddingBottom: 8,
         }}
       >
         <Navigation />
