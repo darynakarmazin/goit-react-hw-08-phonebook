@@ -8,8 +8,6 @@ export default function Login() {
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
 
-  const dispatch = useDispatch();
-
   const handleChange = event => {
     const { name, value } = event.target;
 
@@ -24,6 +22,8 @@ export default function Login() {
         return;
     }
   };
+
+  const dispatch = useDispatch();
 
   const handleSubmit = e => {
     e.preventDefault();
